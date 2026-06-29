@@ -1,6 +1,6 @@
 
-import axios from 'axios'
 import './HomePage.css'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Header } from '../components/Header'
 import { Products } from '../components/Products'
