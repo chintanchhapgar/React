@@ -1,3 +1,4 @@
+import {formatMoney} from '../utils/money'
 export function Products({props}) {
     const product = props;
     return (
@@ -21,7 +22,7 @@ export function Products({props}) {
             </div>
 
             <div className="product-price">
-                ${(product.priceCents / 100).toFixed(2)}
+                {formatMoney(product.priceCents)}
             </div>
 
             <div className="product-quantity-container">
