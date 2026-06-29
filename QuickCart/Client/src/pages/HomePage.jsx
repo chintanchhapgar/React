@@ -5,10 +5,9 @@ import { useEffect, useState } from 'react'
 import { Header } from '../components/Header'
 import { Products } from '../components/Products'
 
-export function HomePage() {
+export function HomePage({cart}) {
 
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:3000/api/products")
       .then((response) => {
