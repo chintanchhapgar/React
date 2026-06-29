@@ -1,5 +1,5 @@
-export function Products(props) {
-    const product = props.props;
+export function Products({props}) {
+    const product = props;
     return (
         
         <div key={props.id} className="product-container">
