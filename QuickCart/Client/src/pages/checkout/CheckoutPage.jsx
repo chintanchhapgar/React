@@ -60,10 +60,20 @@ export function CheckoutPage({ cart, getCartItems }) {
             <div className="checkout-page">
                 <div className="page-title">Review your order</div>
 
-                <div className="checkout-grid">
-                    <OrderSummary cart={cart} deliveryOptions={deliveryOptions} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} getCartItems={getCartItems} />
-                    <PaymentSummary paymentSummary={paymentSummary} />
-                </div>
+                {cart.length > 0 ?
+                    (
+                        <div className="checkout-grid">
+                            <OrderSummary cart={cart} deliveryOptions={deliveryOptions} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} getCartItems={getCartItems} />
+                            <PaymentSummary paymentSummary={paymentSummary} />
+                        </div>
+                    )
+                    :
+                    (
+                        <div className="checkout-grid">
+                            Oops! Your cart is empty.
+                        </div>
+                    )
+                }
             </div>
         </>
     )
