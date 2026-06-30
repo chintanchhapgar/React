@@ -7,9 +7,11 @@ import { OrderSummary } from './OrderSummary'
 import { PaymentSummary } from './PaymentSummary'
 import { Link } from 'react-router'
 export function CheckoutPage({ cart, getCartItems }) {
+
     const [deliveryOptions, setDeliveryOptions] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState({});
     const [paymentSummary, setPaymentSummary] = useState({});
+
     useEffect(() => {
         const getDeliveryOptions = async () => {
             const response = await axios.get("/api/delivery-options?expand=estimateddeliverytime")
@@ -17,6 +19,7 @@ export function CheckoutPage({ cart, getCartItems }) {
         }
         getDeliveryOptions();
     }, [])
+
     useEffect(() => {
         const getPaymentSummary = async () => {
             const response = await axios.get("/api/payment-summary")
@@ -64,7 +67,7 @@ export function CheckoutPage({ cart, getCartItems }) {
                     (
                         <div className="checkout-grid">
                             <OrderSummary cart={cart} deliveryOptions={deliveryOptions} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} getCartItems={getCartItems} />
-                            <PaymentSummary paymentSummary={paymentSummary} />
+                            <PaymentSummary paymentSummary={paymentSummary} getCartItems={getCartItems} />
                         </div>
                     )
                     :
