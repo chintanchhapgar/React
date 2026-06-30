@@ -2,8 +2,8 @@
   height: 60px;
   padding-left: 30px;
   padding-right: 30px;
-  background-color: white;
-
+  background-color: #1F2937;
+color:white;
   display: flex;
   justify-content: center;
 
@@ -16,7 +16,6 @@
 
 .checkout-header .header-content {
   width: 100%;
-  max-width: 1100px;
 
   display: flex;
   align-items: center;
@@ -27,7 +26,7 @@
 }
 
 .checkout-header .logo {
-  height: 26px;
+  height: 50px;
   margin-top: 0px;
 }
 
@@ -67,7 +66,7 @@
 }
 
 .checkout-header .return-to-home-link {
-  color: rgb(25, 135, 84);
+  color: lightgray;
 
   text-decoration: none;
   cursor: pointer;
