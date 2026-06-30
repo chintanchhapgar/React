@@ -7,7 +7,6 @@ router.get('/', async (req, res) => {
   const expand = req.query.expand;
   const deliveryOptions = await DeliveryOption.findAll();
   let response = deliveryOptions;
-  console.log(expand);
   if (expand === 'estimatedDeliveryTime' || expand === 'estimateddeliverytime') {
     response = deliveryOptions.map(option => {
       const deliveryTimeMs = Date.now() + option.deliveryDays * 24 * 60 * 60 * 1000;
