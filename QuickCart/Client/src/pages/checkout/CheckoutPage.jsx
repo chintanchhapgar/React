@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { OrderSummary } from './OrderSummary'
 import { PaymentSummary } from './PaymentSummary'
 import { Link } from 'react-router'
-export function CheckoutPage({ cart }) {
+export function CheckoutPage({ cart, getCartItems }) {
     const [deliveryOptions, setDeliveryOptions] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState({});
     const [paymentSummary, setPaymentSummary] = useState({});
@@ -16,12 +16,14 @@ export function CheckoutPage({ cart }) {
             setDeliveryOptions(response.data)
         }
         getDeliveryOptions();
+    }, [])
+    useEffect(() => {
         const getPaymentSummary = async () => {
             const response = await axios.get("/api/payment-summary")
             setPaymentSummary(response.data)
         }
-        getPaymentSummary
-    }, [])
+        getPaymentSummary();
+    }, [cart])
 
     useEffect(() => {
         const initialSelected = cart.reduce((acc, cartItem) => {
@@ -29,7 +31,7 @@ export function CheckoutPage({ cart }) {
             return acc;
         }, {});
         setSelectedOptions(initialSelected);
-    }, [cart]);
+    }, []);
 
     return (
         <>
@@ -59,8 +61,8 @@ export function CheckoutPage({ cart }) {
                 <div className="page-title">Review your order</div>
 
                 <div className="checkout-grid">
-                   <OrderSummary cart={cart} deliveryOptions={deliveryOptions} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} />
-                   <PaymentSummary paymentSummary={paymentSummary} />
+                    <OrderSummary cart={cart} deliveryOptions={deliveryOptions} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} getCartItems={getCartItems} />
+                    <PaymentSummary paymentSummary={paymentSummary} />
                 </div>
             </div>
         </>
