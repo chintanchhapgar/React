@@ -17,7 +17,7 @@ export function OrdersPage({ cart }) {
     return (
         <>
             <title>Orders</title>
-            <Header cart={cart} />
+            <Header cart={cart} showSearchBar={false} />
 
             <div className="orders-page">
                 <div className="page-title">Your Orders</div>

@@ -6,7 +6,7 @@ export function TrackingPage({cart}) {
         <>
             <title>Tracking</title>
 
-            <Header cart={cart}/>
+            <Header cart={cart} showSearchBar={false} />
             <div className="tracking-page">
                 <div className="order-tracking">
                     <Link className="back-to-orders-link link-primary" to="/orders">

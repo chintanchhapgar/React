@@ -1,11 +1,32 @@
+import { useState } from 'react'
 import { Link } from 'react-router'
 import './Header.css'
-export function Header({ cart }) {
+import axios from 'axios';
+export function Header({ cart, products, setProducts, showSearchBar }) {
+    const [searchTerm, setSearchTerm] = useState('');
+
     let totalQuantity = 0;
-        
+
     cart.forEach((cartItem) => {
         totalQuantity += cartItem.quantity;
     });
+
+    const searchProducts = async () => {
+        const response = await axios.get(`/api/products${searchTerm ? `?search=${encodeURIComponent(searchTerm)}` : ''}`)
+        setProducts(response.data)
+    };
+
+    const onSearchInputChange = (event) => {
+        setSearchTerm(event.target.value)
+    }
+
+    const onSearchKeyDown = async (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault()
+            await searchProducts()
+        }
+    }
+
     return (
         <>
             <div className="header">
@@ -18,13 +39,24 @@ export function Header({ cart }) {
                     </Link>
                 </div>
 
-                <div className="middle-section">
-                    <input className="search-bar" type="text" placeholder="Search" />
+                {showSearchBar &&
+                    (
+                        <div className="middle-section">
+                            <input
+                                className="search-bar"
+                                type="text"
+                                placeholder="Search"
+                                value={searchTerm}
+                                onChange={onSearchInputChange}
+                                onKeyDown={onSearchKeyDown}
+                            />
 
-                    <button className="search-button">
-                        <img className="search-icon" src="images/icons/search-icon.png" />
-                    </button>
-                </div>
+                            <button className="search-button" onClick={searchProducts}>
+                                <img className="search-icon" src="images/icons/search-icon.png" />
+                            </button>
+                        </div>
+                    )
+                }
 
                 <div className="right-section">
                     <Link className="orders-link header-link" to="/orders">
