@@ -9,22 +9,21 @@ import { TrackingPage } from './pages/TrackingPage'
 import './App.css'
 
 function App() {
+  
+  const getCartItems = async () => {
+    const response = await axios.get("/api/cart-items?expand=product")
+    setCart(response.data)
+  }
 
   const [cart, setCart] = useState([]);
   useEffect(() => {
-    const getCartItems = async () => {
-      const response = await axios.get("/api/cart-items?expand=product")
-      setCart(response.data)
-    } 
     getCartItems();
- }, [])
-
-
+  }, [])
 
   return (
     <Routes>
-      <Route index element={<HomePage cart={cart}/>} />
-      <Route path="checkout" element={<CheckoutPage  cart={cart} />} />
+      <Route index element={<HomePage cart={cart} getCartItems={getCartItems} />} />
+      <Route path="checkout" element={<CheckoutPage cart={cart} />} />
       <Route path="orders" element={<OrdersPage cart={cart} />} />
       <Route path="tracking" element={<TrackingPage />} />
     </Routes>
